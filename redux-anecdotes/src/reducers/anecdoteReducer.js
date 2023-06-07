@@ -15,7 +15,6 @@ const asObject = (anecdote) => {
     votes: 0,
   };
 };
-//make sure that state is ordered by votes
 
 const compare = (a, b) => {
   if (a.votes > b.votes) {
@@ -29,10 +28,8 @@ const compare = (a, b) => {
 
 anecdotesAtStart.sort(compare);
 
-// make sure that state is ordered by votes
-
 const initialState = anecdotesAtStart.map(asObject);
-
+// createAnecdote function
 export const createAnecdote = (content) => {
   return {
     type: "NEW_ANECDOTE",
@@ -43,7 +40,7 @@ export const createAnecdote = (content) => {
     },
   };
 };
-
+// voteAnecdote function
 export const voteAnecdote = (id) => {
   return {
     type: "VOTE",
