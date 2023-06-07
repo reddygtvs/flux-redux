@@ -15,6 +15,21 @@ const asObject = (anecdote) => {
     votes: 0,
   };
 };
+//make sure that state is ordered by votes
+
+const compare = (a, b) => {
+  if (a.votes > b.votes) {
+    return -1;
+  }
+  if (a.votes < b.votes) {
+    return 1;
+  }
+  return 0;
+};
+
+anecdotesAtStart.sort(compare);
+
+// make sure that state is ordered by votes
 
 const initialState = anecdotesAtStart.map(asObject);
 
@@ -47,9 +62,11 @@ const reducer = (state = initialState, action) => {
         ...anecdoteToChange,
         votes: anecdoteToChange.votes + 1,
       };
-      return state.map((anecdote) =>
-        anecdote.id !== id ? anecdote : changedAnecdote
-      );
+
+      return state
+        .map((anecdote) => (anecdote.id !== id ? anecdote : changedAnecdote))
+        .sort(compare);
+
     case "NEW_ANECDOTE":
       return [...state, action.data];
     default: // if none of the above matches, code comes here
